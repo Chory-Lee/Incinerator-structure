@@ -169,6 +169,12 @@
       line-height: 1.4;
     }
 
+    .card-label small {
+      color: var(--color-text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
     .card-value {
       margin-bottom: 10px;
       color: var(--color-text-strong);
@@ -388,13 +394,13 @@
 
     <section class="cards" aria-label="주요 공정 지표">
       <article class="card">
-        <div class="card-label">설치 공정률</div>
+        <div class="card-label">설치 공정률 <small>(중량기준)</small></div>
         <div class="card-value" id="installRate">0%</div>
         <div class="card-sub" id="installWeight"></div>
         <div class="progress"><span id="installBar"></span></div>
       </article>
       <article class="card">
-        <div class="card-label">현장 입고율</div>
+        <div class="card-label">현장 입고율 <small>(중량기준)</small></div>
         <div class="card-value" id="receiveRate">0%</div>
         <div class="card-sub" id="receiveWeight"></div>
         <div class="progress"><span id="receiveBar" style="background: var(--color-status-success)"></span></div>
@@ -425,7 +431,7 @@
 
     <section class="grid">
       <article class="panel">
-        <h2>일자별 설치 수량</h2>
+        <h2>일자별 설치 물량</h2>
         <div id="timelineChart" class="chart"></div>
       </article>
       <article class="panel">
@@ -475,27 +481,32 @@
             "remainInstallRate": 64.2271591594758
       },
       "timeline": [
-            {
-                  "date": "07/14",
-                  "qty": 10
-            },
-            {
-                  "date": "07/16",
-                  "qty": 39
-            },
-            {
-                  "date": "07/17",
-                  "qty": 38
-            },
-            {
-                  "date": "07/22",
-                  "qty": 5
-            },
-            {
-                  "date": "07/24",
-                  "qty": 17
-            }
-      ],
+        {
+                "date": "07/14",
+                "qty": 10,
+                "weight": 11122.5
+        },
+        {
+                "date": "07/16",
+                "qty": 39,
+                "weight": 11065.777777777777
+        },
+        {
+                "date": "07/17",
+                "qty": 38,
+                "weight": 5616
+        },
+        {
+                "date": "07/22",
+                "qty": 5,
+                "weight": 6792.5
+        },
+        {
+                "date": "07/24",
+                "qty": 17,
+                "weight": 19683.5
+        }
+],
       "byType": [
             {
                   "type": "COLUMN",
@@ -595,12 +606,12 @@
     }
 
     function typeChart() {
-      const w = 760;
-      const rowH = 42;
+      const w = 820;
+      const rowH = 46;
       const left = 104;
-      const barMax = 410;
-      const valueX = left + barMax + 12;
-      const percentX = valueX + 108;
+      const barMax = 470;
+      const valueX = left + barMax + 14;
+      const percentX = valueX + 112;
       const top = 18;
       const h = top + data.byType.length * rowH + 34;
       const maxWeight = Math.max(...data.byType.map(d => d.weight));
@@ -609,11 +620,11 @@
         const totalW = barMax * d.weight / maxWeight;
         const doneW = barMax * d.installed / maxWeight;
         return `
-          <text x="0" y="${y + 24}" font-size="16" fill="#1c1c1c" font-weight="600">${d.type}</text>
-          <rect x="${left}" y="${y + 7}" width="${totalW}" height="22" rx="4" fill="#ccd0d6"></rect>
-          <rect x="${left}" y="${y + 7}" width="${doneW}" height="22" rx="4" fill="#0f6fff"></rect>
-          <text x="${valueX}" y="${y + 24}" font-size="14" fill="#737373">${ton(d.weight)}</text>
-          <text x="${percentX}" y="${y + 24}" font-size="15" text-anchor="end" fill="#15b874" font-weight="700">${pct(d.installRate)}</text>
+          <text x="0" y="${y + 26}" font-size="16" fill="#1c1c1c" font-weight="600">${d.type}</text>
+          <rect x="${left}" y="${y + 8}" width="${totalW}" height="24" rx="4" fill="#ccd0d6"></rect>
+          <rect x="${left}" y="${y + 8}" width="${doneW}" height="24" rx="4" fill="#0f6fff"></rect>
+          <text x="${valueX}" y="${y + 26}" font-size="14" fill="#737373">${ton(d.weight)}</text>
+          <text x="${percentX}" y="${y + 26}" font-size="15" text-anchor="end" fill="#15b874" font-weight="700">${pct(d.installRate)}</text>
         `;
       }).join("");
       document.getElementById("typeChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" role="img" aria-label="부재 타입별 중량 막대 차트">${rows}</svg>`;
@@ -676,26 +687,34 @@
 
     function timelineChart() {
       const w = 760;
-      const h = 270;
+      const h = 330;
       const left = 48;
-      const bottom = 42;
-      const top = 24;
-      const max = Math.max(...data.timeline.map(d => d.qty));
+      const bottom = 32;
+      const top = 54;
+      const maxQty = Math.max(...data.timeline.map(d => d.qty));
+      const maxWeight = Math.max(...data.timeline.map(d => d.weight));
       const step = (w - left - 28) / data.timeline.length;
       const bars = data.timeline.map((d, i) => {
-        const barH = (h - bottom - top) * d.qty / max;
-        const x = left + i * step + 18;
-        const y = h - bottom - barH;
-        const barW = Math.min(72, step - 28);
+        const qtyH = (h - bottom - top) * d.qty / maxQty;
+        const weightH = (h - bottom - top) * d.weight / maxWeight;
+        const groupX = left + i * step + 18;
+        const barW = Math.min(30, (step - 34) / 2);
+        const qtyY = h - bottom - qtyH;
+        const weightY = h - bottom - weightH;
         return `
-          <rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="4" fill="#0f6fff"></rect>
-          <text x="${x + barW / 2}" y="${y - 8}" text-anchor="middle" font-size="13" fill="#1c1c1c" font-weight="600">${fmt.format(d.qty)}</text>
-          <text x="${x + barW / 2}" y="${h - 14}" text-anchor="middle" font-size="12" fill="#737373">${d.date}</text>
+          <rect x="${groupX}" y="${qtyY}" width="${barW}" height="${qtyH}" rx="4" fill="#0f6fff"></rect>
+          <rect x="${groupX + barW + 6}" y="${weightY}" width="${barW}" height="${weightH}" rx="4" fill="#15b874"></rect>
+          <text x="${groupX + barW / 2}" y="${qtyY - 8}" text-anchor="middle" font-size="12" fill="#0f6fff" font-weight="600">${fmt.format(d.qty)}</text>
+          <text x="${groupX + barW * 1.5 + 6}" y="${weightY - 8}" text-anchor="middle" font-size="12" fill="#15b874" font-weight="600">${fmt1.format(d.weight / 1000)}</text>
+          <text x="${groupX + barW + 3}" y="${h - 16}" text-anchor="middle" font-size="12" fill="#737373">${d.date}</text>
         `;
       }).join("");
-      document.getElementById("timelineChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" role="img" aria-label="일자별 설치 수량 막대 차트">
+      document.getElementById("timelineChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" role="img" aria-label="일자별 설치 물량 막대 차트">
         <line x1="${left}" y1="${h - bottom}" x2="${w - 18}" y2="${h - bottom}" stroke="#e2e4e9"></line>
-        <text x="0" y="24" font-size="12" fill="#737373">EA</text>
+        <circle cx="${left}" cy="22" r="5" fill="#0f6fff"></circle>
+        <text x="${left + 12}" y="26" font-size="12" fill="#737373">EA</text>
+        <circle cx="${left + 52}" cy="22" r="5" fill="#15b874"></circle>
+        <text x="${left + 64}" y="26" font-size="12" fill="#737373">Ton</text>
         ${bars}
       </svg>`;
     }
