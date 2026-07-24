@@ -368,8 +368,8 @@
         <span class="service-name">소각로철골 공정 진행 현황</span>
       </div>
       <div class="header-meta" aria-label="문서 정보">
-        <span class="meta-chip">기준일 2026-07-22</span>
-        <span class="meta-chip">원본 소각로 철골 공정진행표 260722.xlsx</span>
+        <span class="meta-chip">기준일 2026-07-24</span>
+        <span class="meta-chip">원본 소각로 철골 공정진행표 260724.xlsx</span>
       </div>
     </div>
   </header>
@@ -457,35 +457,114 @@
 
   <script>
     const data = {
-      summary: {
-        totalQty: 672,
-        receivedQty: 564,
-        installedQty: 92,
-        remainInstallQty: 580,
-        totalWeight: 151736,
-        receivedWeight: 106069,
-        installedWeight: 34596.77777777778,
-        remainInstallWeight: 117139.22222222222,
-        receiveRate: 69.9036484420309,
-        installRate: 22.800639121749473,
-        remainInstallRate: 77.19936087825053
+      "summary": {
+            "totalQty": 672,
+            "receivedQty": 564,
+            "installedQty": 109,
+            "remainInstallQty": 563,
+            "totalWeight": 151736,
+            "receivedWeight": 106069,
+            "installedWeight": 54280.27777777778,
+            "remainInstallWeight": 97455.72222222222,
+            "receiveRate": 69.9036484420309,
+            "installRate": 35.77284084052419,
+            "remainInstallRate": 64.2271591594758
       },
-      timeline: [
-        { date: "07/14", qty: 10 },
-        { date: "07/16", qty: 39 },
-        { date: "07/17", qty: 38 },
-        { date: "07/22", qty: 5 }
+      "timeline": [
+            {
+                  "date": "07/14",
+                  "qty": 10
+            },
+            {
+                  "date": "07/16",
+                  "qty": 39
+            },
+            {
+                  "date": "07/17",
+                  "qty": 38
+            },
+            {
+                  "date": "07/22",
+                  "qty": 5
+            },
+            {
+                  "date": "07/24",
+                  "qty": 17
+            }
       ],
-      byType: [
-        { type: "COLUMN", qty: 36, weight: 76156, received: 39661, installed: 22846, installQty: 11, installRate: 29.998949524659906, receiveRate: 52.078628079205835 },
-        { type: "BEAM", qty: 130, weight: 53004, received: 49010, installed: 10138, installQty: 31, installRate: 19.126858350313185, receiveRate: 92.46471964380046 },
-        { type: "JOIST", qty: 382, weight: 13809, received: 13809, installed: 1454.7777777777778, installQty: 46, installRate: 10.534997304495459, receiveRate: 100 },
-        { type: "HANDRAIL", qty: 86, weight: 5136, received: 0, installed: 0, installQty: 0, installRate: 0, receiveRate: 0 },
-        { type: "V-BRACE", qty: 32, weight: 3025, received: 3025, installed: 158, installQty: 4, installRate: 5.223140495867769, receiveRate: 100 },
-        { type: "STAIR", qty: 2, weight: 564, received: 564, installed: 0, installQty: 0, installRate: 0, receiveRate: 100 },
-        { type: "PLATE", qty: 4, weight: 42, received: 0, installed: 0, installQty: 0, installRate: 0, receiveRate: 0 }
-      ],
-    };
+      "byType": [
+            {
+                  "type": "COLUMN",
+                  "qty": 36,
+                  "weight": 76156,
+                  "received": 39661,
+                  "installed": 39660,
+                  "installQty": 20,
+                  "receiveRate": 52.078628079205835,
+                  "installRate": 52.07731498503073
+            },
+            {
+                  "type": "BEAM",
+                  "qty": 130,
+                  "weight": 53004,
+                  "received": 49010,
+                  "installed": 13007.5,
+                  "installQty": 39,
+                  "receiveRate": 92.46471964380046,
+                  "installRate": 24.540600709380424
+            },
+            {
+                  "type": "JOIST",
+                  "qty": 382,
+                  "weight": 13809,
+                  "received": 13809,
+                  "installed": 1454.7777777777778,
+                  "installQty": 46,
+                  "receiveRate": 100.0,
+                  "installRate": 10.534997304495459
+            },
+            {
+                  "type": "HANDRAIL",
+                  "qty": 86,
+                  "weight": 5136,
+                  "received": 0,
+                  "installed": 0,
+                  "installQty": 0,
+                  "receiveRate": 0.0,
+                  "installRate": 0.0
+            },
+            {
+                  "type": "V-BRACE",
+                  "qty": 32,
+                  "weight": 3025,
+                  "received": 3025,
+                  "installed": 158,
+                  "installQty": 4,
+                  "receiveRate": 100.0,
+                  "installRate": 5.223140495867769
+            },
+            {
+                  "type": "STAIR",
+                  "qty": 2,
+                  "weight": 564,
+                  "received": 564,
+                  "installed": 0,
+                  "installQty": 0,
+                  "receiveRate": 100.0,
+                  "installRate": 0.0
+            },
+            {
+                  "type": "PLATE",
+                  "qty": 4,
+                  "weight": 42,
+                  "received": 0,
+                  "installed": 0,
+                  "installQty": 0,
+                  "receiveRate": 0.0,
+                  "installRate": 0.0
+            }
+      ]
+};
 
     const fmt = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 0 });
     const fmt1 = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 });
