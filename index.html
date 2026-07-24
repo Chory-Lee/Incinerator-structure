@@ -185,6 +185,10 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .card-sub span {
+      display: block;
+    }
+
     .progress {
       width: 100%;
       height: 8px;
@@ -569,6 +573,7 @@
     const fmt = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 0 });
     const fmt1 = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 });
     const pct = value => `${fmt1.format(value)}%`;
+    const ratio = (value, total) => total ? value / total * 100 : 0;
     const ton = weightValue => `${fmt1.format(weightValue / 1000)} Ton`;
     const esc = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" }[char]));
 
@@ -579,13 +584,13 @@
     function initCards() {
       const s = data.summary;
       setText("installRate", pct(s.installRate));
-      setText("installWeight", `${fmt.format(s.installedQty)} / ${fmt.format(s.totalQty)} EA · ${ton(s.installedWeight)} / ${ton(s.totalWeight)}`);
+      document.getElementById("installWeight").innerHTML = `<span>수량 기준: ${fmt.format(s.installedQty)} / ${fmt.format(s.totalQty)} EA (${pct(ratio(s.installedQty, s.totalQty))})</span><span>중량 기준: ${ton(s.installedWeight)} / ${ton(s.totalWeight)}</span>`;
       document.getElementById("installBar").style.width = `${s.installRate}%`;
       setText("receiveRate", pct(s.receiveRate));
-      setText("receiveWeight", `${fmt.format(s.receivedQty)} / ${fmt.format(s.totalQty)} EA · ${ton(s.receivedWeight)} / ${ton(s.totalWeight)}`);
+      document.getElementById("receiveWeight").innerHTML = `<span>수량 기준: ${fmt.format(s.receivedQty)} / ${fmt.format(s.totalQty)} EA (${pct(ratio(s.receivedQty, s.totalQty))})</span><span>중량 기준: ${ton(s.receivedWeight)} / ${ton(s.totalWeight)}</span>`;
       document.getElementById("receiveBar").style.width = `${s.receiveRate}%`;
       setText("remainWeight", ton(s.remainInstallWeight));
-      setText("remainQty", `잔여 ${fmt.format(s.remainInstallQty)} EA · ${ton(s.remainInstallWeight)}`);
+      document.getElementById("remainQty").innerHTML = `<span>수량 기준: 잔여 ${fmt.format(s.remainInstallQty)} EA (${pct(ratio(s.remainInstallQty, s.totalQty))})</span><span>중량 기준: 잔여 ${ton(s.remainInstallWeight)}</span>`;
       document.getElementById("remainBar").style.width = `${s.remainInstallRate}%`;
     }
 
