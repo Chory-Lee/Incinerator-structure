@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>소각로철골 공정 진행 현황</title>
+  <link rel="icon" href="./assets/logo/Mode=Symbol-GS.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --color-bg-page: #ffffff;
+      --color-bg-content: #eef1f5;
+      --color-bg-surface: #ffffff;
+      --color-bg-surface-alt-1: #f2f3f6;
+      --color-bg-surface-alt-2: #e2e4e9;
+      --color-bg-inverse: #1d1f24;
+      --color-text-strong: #000000;
+      --color-text-primary: #1c1c1c;
+      --color-text-secondary: #303030;
+      --color-text-muted: #737373;
+      --color-text-inverse: #ebeced;
+      --color-action-primary: #0f6fff;
+      --color-action-primary-hover: #0e65e8;
+      --color-action-secondary: #1d1f24;
+      --color-border-default: #e2e4e9;
+      --color-border-strong: #ccd0d6;
+      --color-divider-default: #e9ebef;
+      --color-status-success: #15b874;
+      --color-status-warning: #ffa833;
+      --color-status-danger: #e63b3b;
+      --color-accent-skyblue: #00bdde;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-pill: 9999px;
+      --shadow-level-1: 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-level-2: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-bg-content);
+      color: var(--color-text-primary);
+      font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--color-bg-page);
+      border-bottom: 1px solid var(--color-divider-default);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 16px 24px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 118px;
+      height: auto;
+      flex: 0 0 auto;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--color-divider-default);
+      flex: 0 0 auto;
+    }
+
+    .service-name {
+      color: var(--color-text-primary);
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .meta-chip {
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-pill);
+      background: var(--color-bg-surface);
+      padding: 6px 12px;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .page-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .page-title h1 {
+      margin: 0;
+      color: var(--color-text-primary);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .page-title p {
+      margin: 6px 0 0;
+      color: var(--color-text-muted);
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card,
+    .panel {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-level-1);
+    }
+
+    .card {
+      padding: 20px;
+      min-height: 144px;
+    }
+
+    .card-label {
+      margin-bottom: 10px;
+      color: var(--color-action-primary);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .card-value {
+      margin-bottom: 10px;
+      color: var(--color-text-strong);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-sub {
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: var(--radius-pill);
+      background: var(--color-bg-surface-alt-2);
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: var(--color-action-primary);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .chart-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 20px;
+    }
+
+    .panel h2 {
+      margin: 0 0 16px;
+      color: var(--color-text-primary);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .chart {
+      width: 100%;
+      min-height: 260px;
+    }
+
+    .pie-chart {
+      min-height: 360px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin-top: 12px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      border-radius: 50%;
+      vertical-align: -1px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    .model-image {
+      display: block;
+      width: 100%;
+      max-height: 680px;
+      object-fit: contain;
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-surface-alt-1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    th,
+    td {
+      height: 48px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--color-divider-default);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th {
+      background: var(--color-bg-surface-alt-1);
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child,
+    th:first-child,
+    td:nth-child(2),
+    th:nth-child(2),
+    td:nth-child(3),
+    th:nth-child(3) {
+      text-align: left;
+    }
+
+    footer {
+      padding: 4px 0 18px;
+      color: var(--color-text-muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .header-inner,
+      .page-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .header-meta {
+        justify-content: flex-start;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .header-inner,
+      main {
+        padding: 16px 20px;
+      }
+
+      .brand-logo {
+        width: 86px;
+      }
+
+      .service-name {
+        font-size: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .card-value {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-lockup">
+        <img class="brand-logo" src="./assets/logo/Mode=OnWhite, Language=Kor.svg" alt="GS건설">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="service-name">소각로철골 공정 진행 현황</span>
+      </div>
+      <div class="header-meta" aria-label="문서 정보">
+        <span class="meta-chip">기준일 2026-07-22</span>
+        <span class="meta-chip">원본 소각로 철골 공정진행표 260722.xlsx</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-title">
+      <div>
+        <h1>소각로철골 공정 진행 현황</h1>
+        <p>성남시 폐기물에너지화 민간투자사업(BTO) 건설공사</p>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="주요 공정 지표">
+      <article class="card">
+        <div class="card-label">설치 공정률</div>
+        <div class="card-value" id="installRate">0%</div>
+        <div class="card-sub" id="installWeight"></div>
+        <div class="progress"><span id="installBar"></span></div>
+      </article>
+      <article class="card">
+        <div class="card-label">현장 입고율</div>
+        <div class="card-value" id="receiveRate">0%</div>
+        <div class="card-sub" id="receiveWeight"></div>
+        <div class="progress"><span id="receiveBar" style="background: var(--color-status-success)"></span></div>
+      </article>
+      <article class="card">
+        <div class="card-label">설치 잔여</div>
+        <div class="card-value" id="remainWeight">0 Ton</div>
+        <div class="card-sub" id="remainQty"></div>
+        <div class="progress"><span id="remainBar" style="background: var(--color-status-warning)"></span></div>
+      </article>
+    </section>
+
+    <section class="grid chart-grid">
+      <article class="panel">
+        <h2>부재 타입별 중량 및 설치율</h2>
+        <div id="typeChart" class="chart"></div>
+        <div class="legend">
+          <span><i class="dot" style="background: var(--color-border-strong)"></i>총 중량</span>
+          <span><i class="dot" style="background: var(--color-action-primary)"></i>설치 중량</span>
+          <span><i class="dot" style="background: var(--color-status-success)"></i>설치율</span>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>공정 진행 비율</h2>
+        <div id="weightPieChart" class="chart pie-chart"></div>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>일자별 설치 수량</h2>
+        <div id="timelineChart" class="chart"></div>
+      </article>
+      <article class="panel">
+        <h2>부재 타입별 요약</h2>
+        <div class="table-wrap">
+          <table id="typeTable">
+            <thead>
+              <tr>
+                <th>ITEM</th>
+                <th>총수량 EA</th>
+                <th>총중량 Ton</th>
+                <th>설치 EA</th>
+                <th>설치 Ton</th>
+                <th>입고율</th>
+                <th>설치율</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>소각로 철골 모델링</h2>
+      <img class="model-image" src="./assets/model-rendering.png" alt="소각로 철골 모델링">
+    </section>
+
+    <footer>
+      공정률은 원본 COVER 시트의 Ton Base 값을 기준으로 표시했습니다.
+    </footer>
+  </main>
+
+  <script>
+    const data = {
+      summary: {
+        totalQty: 672,
+        receivedQty: 564,
+        installedQty: 92,
+        remainInstallQty: 580,
+        totalWeight: 151736,
+        receivedWeight: 106069,
+        installedWeight: 34596.77777777778,
+        remainInstallWeight: 117139.22222222222,
+        receiveRate: 69.9036484420309,
+        installRate: 22.800639121749473,
+        remainInstallRate: 77.19936087825053
+      },
+      timeline: [
+        { date: "07/14", qty: 10 },
+        { date: "07/16", qty: 39 },
+        { date: "07/17", qty: 38 },
+        { date: "07/22", qty: 5 }
+      ],
+      byType: [
+        { type: "COLUMN", qty: 36, weight: 76156, received: 39661, installed: 22846, installQty: 11, installRate: 29.998949524659906, receiveRate: 52.078628079205835 },
+        { type: "BEAM", qty: 130, weight: 53004, received: 49010, installed: 10138, installQty: 31, installRate: 19.126858350313185, receiveRate: 92.46471964380046 },
+        { type: "JOIST", qty: 382, weight: 13809, received: 13809, installed: 1454.7777777777778, installQty: 46, installRate: 10.534997304495459, receiveRate: 100 },
+        { type: "HANDRAIL", qty: 86, weight: 5136, received: 0, installed: 0, installQty: 0, installRate: 0, receiveRate: 0 },
+        { type: "V-BRACE", qty: 32, weight: 3025, received: 3025, installed: 158, installQty: 4, installRate: 5.223140495867769, receiveRate: 100 },
+        { type: "STAIR", qty: 2, weight: 564, received: 564, installed: 0, installQty: 0, installRate: 0, receiveRate: 100 },
+        { type: "PLATE", qty: 4, weight: 42, received: 0, installed: 0, installQty: 0, installRate: 0, receiveRate: 0 }
+      ],
+    };
+
+    const fmt = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 0 });
+    const fmt1 = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 });
+    const pct = value => `${fmt1.format(value)}%`;
+    const ton = weightValue => `${fmt1.format(weightValue / 1000)} Ton`;
+    const esc = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" }[char]));
+
+    function setText(id, text) {
+      document.getElementById(id).textContent = text;
+    }
+
+    function initCards() {
+      const s = data.summary;
+      setText("installRate", pct(s.installRate));
+      setText("installWeight", `${fmt.format(s.installedQty)} / ${fmt.format(s.totalQty)} EA · ${ton(s.installedWeight)} / ${ton(s.totalWeight)}`);
+      document.getElementById("installBar").style.width = `${s.installRate}%`;
+      setText("receiveRate", pct(s.receiveRate));
+      setText("receiveWeight", `${fmt.format(s.receivedQty)} / ${fmt.format(s.totalQty)} EA · ${ton(s.receivedWeight)} / ${ton(s.totalWeight)}`);
+      document.getElementById("receiveBar").style.width = `${s.receiveRate}%`;
+      setText("remainWeight", ton(s.remainInstallWeight));
+      setText("remainQty", `잔여 ${fmt.format(s.remainInstallQty)} EA · ${ton(s.remainInstallWeight)}`);
+      document.getElementById("remainBar").style.width = `${s.remainInstallRate}%`;
+    }
+
+    function typeChart() {
+      const w = 760;
+      const rowH = 42;
+      const left = 104;
+      const barMax = 410;
+      const valueX = left + barMax + 12;
+      const percentX = valueX + 108;
+      const top = 18;
+      const h = top + data.byType.length * rowH + 34;
+      const maxWeight = Math.max(...data.byType.map(d => d.weight));
+      const rows = data.byType.map((d, i) => {
+        const y = top + i * rowH;
+        const totalW = barMax * d.weight / maxWeight;
+        const doneW = barMax * d.installed / maxWeight;
+        return `
+          <text x="0" y="${y + 24}" font-size="16" fill="#1c1c1c" font-weight="600">${d.type}</text>
+          <rect x="${left}" y="${y + 7}" width="${totalW}" height="22" rx="4" fill="#ccd0d6"></rect>
+          <rect x="${left}" y="${y + 7}" width="${doneW}" height="22" rx="4" fill="#0f6fff"></rect>
+          <text x="${valueX}" y="${y + 24}" font-size="14" fill="#737373">${ton(d.weight)}</text>
+          <text x="${percentX}" y="${y + 24}" font-size="15" text-anchor="end" fill="#15b874" font-weight="700">${pct(d.installRate)}</text>
+        `;
+      }).join("");
+      document.getElementById("typeChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" role="img" aria-label="부재 타입별 중량 막대 차트">${rows}</svg>`;
+    }
+
+    function weightPieChart() {
+      const s = data.summary;
+      const total = s.totalWeight;
+      const segments = [
+        { label: "설치완료", value: s.installedWeight, color: "#0f6fff" },
+        { label: "입고완료", value: s.receivedWeight - s.installedWeight, color: "#15b874" },
+        { label: "미입고/제작중", value: s.totalWeight - s.receivedWeight, color: "#ffa833" }
+      ];
+      const cx = 290;
+      const cy = 204;
+      const radius = 104;
+      const strokeWidth = 56;
+      const circumference = 2 * Math.PI * radius;
+      let offset = 0;
+      const rings = segments.map(segment => {
+        const length = circumference * segment.value / total;
+        const node = `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${segment.color}" stroke-width="${strokeWidth}"
+          stroke-dasharray="${length} ${circumference - length}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})"></circle>`;
+        offset += length;
+        return node;
+      }).join("");
+      const installedPct = s.installRate;
+      const receivedOnlyPct = (s.receivedWeight - s.installedWeight) / total * 100;
+      const notReceivedPct = (s.totalWeight - s.receivedWeight) / total * 100;
+      document.getElementById("weightPieChart").innerHTML = `<svg viewBox="0 0 620 420" width="100%" height="100%" role="img" aria-label="공정 진행 비율 원형그래프">
+        <defs>
+          <filter id="pieShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#1d1f24" flood-opacity="0.16"></feDropShadow>
+          </filter>
+        </defs>
+        <g filter="url(#pieShadow)">
+          <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#e2e4e9" stroke-width="${strokeWidth}"></circle>
+          ${rings}
+        <circle cx="${cx}" cy="${cy}" r="58" fill="#ffffff"></circle>
+        </g>
+        <text x="${cx}" y="${cy - 5}" text-anchor="middle" font-size="20" fill="#1c1c1c" font-weight="700">${ton(total)}</text>
+        <text x="${cx}" y="${cy + 20}" text-anchor="middle" font-size="12" fill="#737373">전체 중량</text>
+
+        <path d="M 380 124 L 438 124 L 458 108" fill="none" stroke="#ccd0d6" stroke-width="4" stroke-linecap="square"></path>
+        <text x="472" y="104" font-size="28" fill="#0f6fff" font-weight="700">${fmt1.format(installedPct)}%</text>
+        <text x="472" y="124" font-size="14" fill="#303030" font-weight="700">설치완료</text>
+        <text x="472" y="142" font-size="12" fill="#737373">${ton(s.installedWeight)}</text>
+
+        <path d="M 374 300 L 432 300 L 452 284" fill="none" stroke="#ccd0d6" stroke-width="4" stroke-linecap="square"></path>
+        <text x="466" y="280" font-size="28" fill="#15b874" font-weight="700">${fmt1.format(receivedOnlyPct)}%</text>
+        <text x="466" y="300" font-size="14" fill="#303030" font-weight="700">입고완료</text>
+        <text x="466" y="318" font-size="12" fill="#737373">${ton(s.receivedWeight - s.installedWeight)}</text>
+
+        <path d="M 202 286 L 128 286 L 108 268" fill="none" stroke="#ccd0d6" stroke-width="4" stroke-linecap="square"></path>
+        <text x="26" y="264" font-size="28" fill="#9a5d00" font-weight="700">${fmt1.format(notReceivedPct)}%</text>
+        <text x="26" y="284" font-size="14" fill="#303030" font-weight="700">미입고/제작중</text>
+        <text x="26" y="302" font-size="12" fill="#737373">${ton(s.totalWeight - s.receivedWeight)}</text>
+      </svg>`;
+    }
+
+    function timelineChart() {
+      const w = 760;
+      const h = 270;
+      const left = 48;
+      const bottom = 42;
+      const top = 24;
+      const max = Math.max(...data.timeline.map(d => d.qty));
+      const step = (w - left - 28) / data.timeline.length;
+      const bars = data.timeline.map((d, i) => {
+        const barH = (h - bottom - top) * d.qty / max;
+        const x = left + i * step + 18;
+        const y = h - bottom - barH;
+        const barW = Math.min(72, step - 28);
+        return `
+          <rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="4" fill="#0f6fff"></rect>
+          <text x="${x + barW / 2}" y="${y - 8}" text-anchor="middle" font-size="13" fill="#1c1c1c" font-weight="600">${fmt.format(d.qty)}</text>
+          <text x="${x + barW / 2}" y="${h - 14}" text-anchor="middle" font-size="12" fill="#737373">${d.date}</text>
+        `;
+      }).join("");
+      document.getElementById("timelineChart").innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" role="img" aria-label="일자별 설치 수량 막대 차트">
+        <line x1="${left}" y1="${h - bottom}" x2="${w - 18}" y2="${h - bottom}" stroke="#e2e4e9"></line>
+        <text x="0" y="24" font-size="12" fill="#737373">EA</text>
+        ${bars}
+      </svg>`;
+    }
+
+    function initTables() {
+      document.querySelector("#typeTable tbody").innerHTML = data.byType.map(d => `
+        <tr>
+          <td>${esc(d.type)}</td>
+          <td>${fmt.format(d.qty)}</td>
+          <td>${ton(d.weight)}</td>
+          <td>${fmt.format(d.installQty)}</td>
+          <td>${ton(d.installed)}</td>
+          <td>${pct(d.receiveRate)}</td>
+          <td>${pct(d.installRate)}</td>
+        </tr>
+      `).join("");
+    }
+
+    initCards();
+    typeChart();
+    weightPieChart();
+    timelineChart();
+    initTables();
+  </script>
+</body>
+</html>
